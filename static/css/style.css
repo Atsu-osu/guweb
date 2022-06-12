@@ -5,6 +5,18 @@
   src: url(/static/fonts/extra.ttf) format("truetype")
 }
 
+@font-face {
+    font-family: Blinker;
+    src: url(/static/fonts/Blinker-Regular.ttf) format("truetype");
+}
+
+.homepage-noti {
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: absolute;
+    background-color: transparent !important;
+}
+
 /* layout */
 
 body {
@@ -15,6 +27,7 @@ body {
 }
 
 html {
+  --main: 230;
   position: relative;
   min-height: 100%;
 }
@@ -178,6 +191,44 @@ a.foot-link {
 .navbar-logo {
   font-size: 22px;
   font-weight: 500;
+}
+
+.user-dropdown {
+    background-color: hsl(var(--main), 45%, 45%);
+    margin: 0.5em;
+    border-radius: 0.4em;
+}
+
+.user-dropdown:hover {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#navbar {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.hero.is-fullheight-with-navbar {
+    min-height: 100vh !important;
+}
+
+@media screen and (max-width: 1023px) {
+  #navbar {
+    background-color: #343a40 !important;
+  }
+
+    .homepage-noti {
+        position: relative;
+    }
+
+  .navbar-item.has-dropdown {
+    background-color: transparent !important;
+    margin: 0 !important;
+  }
+}
+
+.hero.is-fullheight-with-navbar {
+    min-height: 100vh !important;
 }
 
 .navbar.is-spaced {

@@ -1065,3 +1065,7 @@ input:checked+label.checkbox:hover {
 .file-icon {
   margin-left: 2em;
 }
+
+.navbar-dropdown {
+    width: unset;
+}

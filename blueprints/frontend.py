@@ -2,6 +2,8 @@
 
 __all__ = ()
 
+import datetime
+import timeago
 import bcrypt
 import hashlib
 import os
@@ -43,6 +45,14 @@ def login_required(func):
 @frontend.route('/')
 async def home():
     return await render_template('home.html')
+
+@frontend.route('/verification_successful')
+async def verification_successful():
+    return await render_template('verification_successful.html', name=request.args.get("name"), id=request.args.get("id"), avatar=request.args.get("avatar"))
+
+@frontend.route('/verification_failed')
+async def verification_failed():
+    return await render_template('verification_failed.html', error=request.args.get("error"))
 
 @frontend.route('/home/account/edit')
 async def home_account_edit():
@@ -325,8 +335,23 @@ async def profile_select(id):
     if not user_data or not (user_data['priv'] & Privileges.Normal or is_staff):
         return (await render_template('404.html'), 404)
 
+    badges = []
+
+    if user_data["priv"] & Privileges.Dangerous:
+        badges.append(("Developer", "fa-code", 7))
+    if user_data["priv"] & Privileges.Admin:
+        badges.append(("Administrator", "fa-user", 9.6))
+    if user_data["priv"] & Privileges.Mod:
+        badges.append(("Moderator", "fa-user-check", 8))
+    if user_data["priv"] & Privileges.Nominator:
+        badges.append(("Nominator", "fa-pen", 9))
+    if user_data["priv"] & Privileges.Supporter:
+        badges.append(("Donator", "fa-dollar-sign", 11.4))
+    if user_data["priv"] & Privileges.Whitelisted:
+        badges.append(("Verified", "fa-check", 9.6))
+
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
-    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
+    return await render_template('profile.html', user=user_data, mode=mode, mods=mods, badges=badges)
 
 
 @frontend.route('/leaderboard')
@@ -569,6 +594,10 @@ async def logout():
     # render login
     return await flash('success', 'Successfully logged out!', 'login')
 
+@frontend.route('/rules')
+async def rules():
+    return await render_template('rules.html')
+
 # social media redirections
 
 @frontend.route('/github')
@@ -588,11 +617,6 @@ async def youtube_redirect():
 @frontend.route('/twitter')
 async def twitter_redirect():
     return redirect(glob.config.twitter)
-
-@frontend.route('/instagram')
-@frontend.route('/ig')
-async def instagram_redirect():
-    return redirect(glob.config.instagram)
 
 # profile customisation
 BANNERS_PATH = Path.cwd() / '.data/banners'

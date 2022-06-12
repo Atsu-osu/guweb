@@ -133,3 +133,7 @@ select:-webkit-autofill:focus {
         place-content: center;
     }
 }
+
+.navbar-dropdown {
+    width: unset;
+}

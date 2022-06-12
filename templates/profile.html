@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
 
+{% macro playstats(map) %}
+<span style=</span> <span style="color: rgb(200, 200, 200);"><%("+" + map[`mods_readable`] + " ").replace("NM", "").replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("DTNC", "NC").replace("+ ", " ") %></span><span style="display: inline-block" v-if="map['perfect'] != 1"><% map['max_combo'] %>/</span><% map['beatmap']['max_combo'] %>x <span style="display: inline-block; color: rgb(245, 215, 16);" v-if="map['perfect'] == 1">FC</span> [ <span style="color: rgb(178, 219, 232);">⬤</span> <% addCommas(map['n300']) %><b>/</b> <span style="color: rgb(172, 235, 140);">⬤</span> <% addCommas(map['n100']) %><b>/</b> <span style="color: rgb(232, 213, 167);">⬤</span> <% addCommas(map['n50']) %><b>/</b> <span style="color: rgb(254, 179, 179);">⬤</span> <% addCommas(map['nmiss']) %> ]
+{% endmacro %}
+
 {% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
@@ -19,12 +23,12 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
+                            <a class="beatmap-link" :href="'https://osu.{{ domain() }}/beatmaps/' + map.beatmap.id">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
                             </a>
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
+                            {{ playstats(map)}}
                         </div>
                         <div class="map-date">
                             <time>
@@ -201,28 +205,35 @@
                 </div>
             </div>
             <div class="bar-selection badge-selects">
-                <span>
-                    Badges not yet implemented!
-                </span>
+                {% if badges.length != 0 %}
+                    {% for b in badges %}
+                        <div class="badge">
+                            <div class="badge-icon" style="margin: 8px 2px 7px {{ b[2] }}px">
+                                <i class="fa-solid {{ b[1] }}"></i>
+                            </div>
+                            <div class="badge-text">{{ b[0] }}</div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
     <div class="second-block">
         <div class="columns is-marginless two-sides">
             <div class="column is-one-third" v-cloak>
-                <!--<div class="header" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
+                <div class="header" v-if='data.stats.out[modegulag].rank != 0'>
                     <div class="title">
                         <i class="fas fa-user-friends"></i> Rank
                     </div>
                 </div>
-                <div class="stats-block rank-block" v-if='data.stats[`rank_global_${modegulag}`] != -1'>
+                <div class="stats-block rank-block" v-if='data.stats.out[modegulag].rank != 0'>
                     <table class="is-striped">
                         <tbody>
                             <tr>
                                 <td>Global rank</td>
                                 <td class="right-aligned">
                                     <span id="global-rank">
-                                        <% '#' + data.stats[`rank_global_${modegulag}`] %>
+                                        <% '#' + data.stats.out[modegulag].rank %>
                                     </span>
                                 </td>
                             </tr>
@@ -230,13 +241,13 @@
                                 <td>Country rank</td>
                                 <td class="right-aligned">
                                     <span id="country-rank">
-                                        <% '#' + data.stats[`rank_country_${modegulag}`] %>
+                                        <% '#' + data.stats.out[modegulag].country_rank %>
                                     </span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>-->
+                </div>
                 <div class="header">
                     <div class="title">
                         <i class="fas fa-chart-pie"></i> Statistics
@@ -284,7 +295,7 @@
                             <tr>
                                 <td><b>Accuracy</b></td>
                                 <td class="right-aligned">
-                                    <% data.stats.out[modegulag].acc %>%
+                                    <% data.stats.out[modegulag].acc.toFixed(2) %>%
                                 </td>
                             </tr>
                         </tbody>

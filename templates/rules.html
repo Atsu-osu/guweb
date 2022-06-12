@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 {% if flash %}
-<div class='homepage-noti noti-banner noti-banner-warning'>
+<div class='noti-banner noti-banner-warning'>
    <div class="container">
       <div class="noti-column">
          <div class='noti-col noti-col-icon'></div>
@@ -36,24 +36,22 @@
 <div class="container flex">
 <div class="columns flex-vcenter">
    <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
-      <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
+      <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">Server Rules</h1>
       <h2 class="subtitle">
-         We are an osu! private server built from the ground up with many
-         unique features not seen elsewhere - for more information, check
-         out <a href="http://github.com/cmyui/gulag">gulag</a>
-         and <a href="https://github.com/Varkaria/guweb">guweb</a>
-         on GitHub - we're fully open source!
+      1. Cheating alongside and any other form of hacking are strictly prohibited.<br/>
+      2. Editing the client is forbidden.<br/>
+      3. Sharing or boosting an account is not allowed, and will be met with a ban.<br/>
+      4. Please do not exploit any vulnerabilities or the server itself. If any are found, please be responsible and report it to a developer.<br/>
+      5. Stealing the username of a popular public figure is forbidden.<br/>
+      <br/>
+      <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">Chat Rules</h1>
+      <h2 class="subtitle">
+         1. Offensive speech is forbidden.<br/>
+         2. Swearing is allowed if it's not offensive towards a particular person.<br/>
+         3. Spreading malicious software and/or content such as cheats, hacks, or NSFW is forbidden.<br/>
+         4. Don't spam unicode, lines and symbols.<br/>
+         5. Do not advertise content unrelated to this server.<br/>
       </h2>
-      {% if not session.authenticated %}
-      <div class="buttons">
-         <a class="button is-primary" href="/register">
-         <strong>Sign up</strong>
-         </a>
-         <a class="button is-light" href="/login">
-         Log in
-         </a>
-      </div>
-      {% endif %}
    </div>
    <div class="column flex flex-lcenter" id="mascot">
       <div class="gulag-avatar"></div>

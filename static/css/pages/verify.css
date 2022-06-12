@@ -235,3 +235,7 @@ button:focus {
         place-content: center;
     }
 }
+
+.navbar-dropdown {
+    width: unset;
+}

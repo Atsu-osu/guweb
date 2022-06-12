@@ -21,6 +21,10 @@
                 Leaderboards
             </a>
 
+            <a class="navbar-item" href="/rules">
+                Rules
+            </a>
+
             <!--<div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
                     Information
@@ -48,7 +52,7 @@
 
         <div class="navbar-end">
             {% if session.authenticated %}
-            <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item user-dropdown has-dropdown is-hoverable">
                 <a class="navbar-link">
                     {{ session.user_data['name'] }}
                 </a>

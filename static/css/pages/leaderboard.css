@@ -9,6 +9,10 @@ a:hover {
   box-sizing: border-box;
 }
 
+.navbar-dropdown {
+    width: unset;
+}
+
 .main-block {
   background-color: hsl(var(--main), 10%, 15%);
   margin-top: 0;
@@ -16,7 +20,8 @@ a:hover {
 }
 
 .leaderboard-banner {
-  background-color: hsl(var(--main), 30%, 50%);
+  background: linear-gradient(hsl(var(--main), 15%, 15%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("https://osu.atsu.pw/static/backgrounds/1.jpg");
+  background-size: cover;
   height: 194px;
   border-radius: 0;
   border-top-right-radius: 8px;
@@ -59,6 +64,18 @@ tr td {
   font-weight: 600;
   font-size: 13px;
   color: #fff;
+}
+
+.leaderboard-column:first-child .column-player-rank {
+    color: rgb(247, 200, 45) !important;
+}
+
+.leaderboard-column:nth-child(2) .column-player-rank {
+    color: rgb(192, 192, 192) !important;
+}
+
+.leaderboard-column:nth-child(3) .column-player-rank {
+    color: rgb(192, 136, 99) !important;
 }
 
 .column-player-name {
