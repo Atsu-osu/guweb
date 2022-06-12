@@ -4,7 +4,7 @@
 ## Sources
 
 - [Varkaria](https://github.com/Varkaria/guweb) - Forked from
-- [cs0su](https://github.com/cs0su/guweb) - Discord related code
+- [cs0su](https://github.com/cs0su/guweb) - Discord/profile related code
 <p align="center">
 (I really should learn how to code :WHYYY:)
 </p>
