@@ -46,14 +46,6 @@ def login_required(func):
 async def home():
     return await render_template('home.html')
 
-@frontend.route('/verification_successful')
-async def verification_successful():
-    return await render_template('verification_successful.html', name=request.args.get("name"), id=request.args.get("id"), avatar=request.args.get("avatar"))
-
-@frontend.route('/verification_failed')
-async def verification_failed():
-    return await render_template('verification_failed.html', error=request.args.get("error"))
-
 @frontend.route('/home/account/edit')
 async def home_account_edit():
     return redirect('/settings/profile')
